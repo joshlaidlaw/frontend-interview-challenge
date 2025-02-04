@@ -1,12 +1,11 @@
 <script setup>
-import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useTicketsStore } from './stores/ticketsStore'
 import TicketList from './components/TicketList.vue'
 import ButtonAddToCart from './components/ButtonAddToCart.vue'
 
 const store = useTicketsStore()
-const { tickets, getTicketCount } = storeToRefs(store);
+const { tickets } = storeToRefs(store);
 
 </script>
 

@@ -32,7 +32,6 @@ export const useTicketsStore = defineStore('ticketsStore', () => {
 
     const addTicket = (ticket: newTicket) => {
         const newIndex = tickets.value.size === 0 ? 0 : tickets.value.size + 1;
-        console.log(ticket.count);
         if (ticket.count > 1) {
 
             for (let i = 1; i <= ticket.count; i++) {

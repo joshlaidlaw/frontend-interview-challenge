@@ -12,18 +12,18 @@ const { tickets } = storeToRefs(store)
 </script>
 
 <template>
-  <di class="flex flex-row border-b-1">
-    <h2 class="font-bold mb-2 ">Admin</h2>
-    <button class="ml-auto m-1 p-1 px-4 border rounded" popovertarget="addTickets" >Add Ticket</button>
-    <TicketForm/>  
-  </di>
-
+  
+  
   <section>
-    
+    <h2 class="font-bold mb-2 border-b-1">Admin</h2>    
     <TicketList :tickets="tickets">
       <template v-slot:actions>
         <ButtonDeleteTicket v-slot="{ticket}" />
       </template>
     </TicketList> 
+    <div class="flex flex-row gap-1">
+      <button class="ml-auto m-1 p-1 px-4 border rounded" popovertarget="addTickets" >Add Ticket</button>
+      <TicketForm />
+    </div>
   </section>
 </template>
