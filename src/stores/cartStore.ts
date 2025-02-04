@@ -1,41 +1,40 @@
-import { Ref, ref, computed } from 'vue';
-import { defineStore } from 'pinia';
+import { Ref, ref } from 'vue'
+import { defineStore } from 'pinia'
 
 export type Ticket = {
-  id: number;
-  name: string;
-  description: string;
-  isVIP: boolean;
-  count: number;
-  price: number;
-  quantity: number;
+  id: number
+  name: string
+  description: string
+  isVIP: boolean
+  count: number
+  price: number
+  quantity: number
 }
 
-
 export const useCartStore = defineStore('cartStore', () => {
-  const ticketsInCart = ref(new Map<number, Ticket>([]));
+  const ticketsInCart = ref(new Map<number, Ticket>([]))
 
-
-  let itemsInCart: Ref<number> = ref(0);
+  const itemsInCart: Ref<number> = ref(0)
 
   const addTicketToCart = (ticket: Ticket) => {
     if (ticketsInCart.value.has(ticket.id)) {
-      const cartItem = ticketsInCart.value.get(ticket.id);
+      const cartItem = ticketsInCart.value.get(ticket.id)
       if (cartItem) {
-        cartItem.quantity++;
-        ticketsInCart.value.set(ticket.id, cartItem);
+        cartItem.quantity = cartItem.quantity + 1
+        ticketsInCart.value.set(ticket.id, cartItem)
       }
+    } else {
+      ticketsInCart.value.set(ticket.id, { ...ticket, quantity: 1 })
     }
-    itemsInCart.value++;
-    ticketsInCart.value.set(ticket.id, {...ticket, quantity: 1});
+    itemsInCart.value++
   }
 
   const removeTicketFromCart = (ticket: Ticket) => {
     if (ticketsInCart.value.has(ticket.id)) {
-      const cartItem = ticketsInCart.value.get(ticket.id);
+      const cartItem = ticketsInCart.value.get(ticket.id)
       if (cartItem) {
-        cartItem.quantity--;
-        itemsInCart.value-- ;
+        cartItem.quantity--
+        itemsInCart.value--
         ticketsInCart.value.delete(ticket.id)
       }
     }
@@ -47,4 +46,4 @@ export const useCartStore = defineStore('cartStore', () => {
     addTicketToCart,
     removeTicketFromCart,
   }
-});
+})

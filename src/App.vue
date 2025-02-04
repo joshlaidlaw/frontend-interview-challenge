@@ -1,5 +1,5 @@
-<script setup>
-import ButtonCart from './components/ButtonCart.vue';
+<script lang="ts" setup>
+import ButtonCart from './components/ButtonCart.vue'
 </script>
 
 <template>
@@ -12,4 +12,3 @@ import ButtonCart from './components/ButtonCart.vue';
     <RouterView />
   </main>
 </template>
-

@@ -1,9 +1,8 @@
-<script setup>
+<script lang="ts" setup>
 import { defineProps, toRefs, provide } from 'vue'
 const props = defineProps(['ticket'])
 const { ticket } = toRefs(props)
-provide('ticket', ticket);
-
+provide('ticket', ticket)
 </script>
 
 <template>
@@ -16,12 +15,11 @@ provide('ticket', ticket);
         {{ ticket.name }}
       </h3>
       <p class="font-light text-sm">{{ ticket.description }}</p>
-
     </div>
     <div class="flex flex-col items-end justify-between ml-auto">
       <span class="text-xs">Available: {{ ticket.count }}</span>
       ${{ ticket.price }}
-      <div >
+      <div>
         <slot name="button"></slot>
       </div>
     </div>

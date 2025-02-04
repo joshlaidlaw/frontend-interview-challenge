@@ -4,10 +4,10 @@ import AdminView from './AdminView.vue'
 import CartView from './CartView.vue'
 import TicketView from './TicketView.vue'
 
- const routes = [
+const routes = [
   { path: '/', component: TicketView },
   { path: '/admin', component: AdminView },
-  { path: '/cart', component: CartView},
+  { path: '/cart', component: CartView },
 ]
 
 export const router = createRouter({
