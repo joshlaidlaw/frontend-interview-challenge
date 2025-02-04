@@ -1,7 +1,9 @@
 <script setup>
 import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
+import { X } from 'lucide-vue-next'
 import { useTicketsStore } from '../stores/ticketsStore'
+
 
 const BASE_NEW_TICKET = {
   name: '',
@@ -14,8 +16,17 @@ const BASE_NEW_TICKET = {
 const newTicket = ref(BASE_NEW_TICKET)
 const store = useTicketsStore()
 
+
+const closePopoverModal = () => {
+  if(document.getElementById("addTickets")) {
+    popover.hidePopover();
+  }
+}
+
 const addTicket = (ticket) => {
+  closePopoverModal()
   store.addTicket(ticket)
+  closePopoverModal()
   newTicket.value = BASE_NEW_TICKET
 }
 
@@ -26,21 +37,19 @@ const addTicket = (ticket) => {
 .ticket-add-form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-}
+  gap: 0.25rem;
 
-.ticket-add-form label {
-  font-weight: bold;
-}
+  label {
+    font-weight: bold;
+  }
 
-.ticket-add-form input {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 0.5rem;
-}
-
-html {
-  font-family: sans-serif;
+  input {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    
+  }
 }
 
 #addTickets {
@@ -48,19 +57,12 @@ html {
   padding: 1.5rem;
   border-radius: 1rem;
   max-height: fit-content;
-  left: calc(100% / 2 -(250px / 2));
+  left: calc(100% / 2 - (576px / 2));
+  top: calc(100% / 2 - (509px / 2));
 }
 
 #addTickets::backdrop {
   background-color: #0005;
-}
-
-#addTickets h3 {
-  margin-top: 0;
-}
-
-#addTickets p {
-  color: #666;
 }
 
 
@@ -68,20 +70,27 @@ html {
 
 <template> 
 <div popover id="addTickets"> 
-  <section class="x-0 y-0 bg-white bg-opacity-90 flex flex-col items-center justify-center"> 
-    <h4>Add Tickets</h4>
-    <form class="ticket-add-form flex flex-col w-xl" @submit.prevent="addTicket(newTicket)">
+  <section class="x-0 y-0 bg-white bg-opacity-90 flex flex-col justify-center"> 
+    <div class="flex flex-row justify-between pb-1 mb-1 border-b-1"> 
+      <h4 class="font-bold text-xl text-left text-gray-800">Add Tickets</h4> 
+      <button class="ml-auto" popovertarget="addTickets" popovertargetaction="hide"> 
+        <X size="24" class="text-gray-500"/> 
+      </button>
+    </div>
+    <form class="ticket-add-form flex flex-col gap-0 w-xl" @submit.prevent="addTicket(newTicket)">
       <label for="name">Name</label>
-      <input type="text" v-model.trim="newTicket.name" />
+      <input id="name" v-model.trim="newTicket.name" autocomplete="false" />
       <label for="description">Description</label>
-      <input type="text" v-model.trim="newTicket.description" />
-      <label for="isVIP">VIP?</label>
-      <input type="checkbox" v-model="newTicket.isVIP"  />
+      <input id="description" v-model.trim="newTicket.description" />
+      <div>
+        <label class="mr-2" for="isVIP">VIP?</label>
+        <input id="isVIP" type="checkbox" v-model="newTicket.isVIP"  />
+      </div>
       <label for="count">Number of Tickets</label>
-      <input type="number" v-model.number="newTicket.count" />
+      <input id="count" type="number" v-model.number="newTicket.count" />
       <label for="price">Price</label>
-      <input type="number" v-model.number="newTicket.price" />
-      <button type="submit">Add Ticket</button>
+      <input id="price" type="number" v-model.number="newTicket.price" />
+      <button class="py-1 px-2 rounded-lg border-1 bg-green-500 text-white mr-auto" type="submit">Add Ticket</button>
     </form>
   </section>
 </div>
